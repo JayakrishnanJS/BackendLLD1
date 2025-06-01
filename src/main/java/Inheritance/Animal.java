@@ -4,6 +4,7 @@ public class Animal {
     String name;
     private int animalID;
 
+    // no-argument constructor
     Animal(){
         name = "Animal";
         animalID = 2;
