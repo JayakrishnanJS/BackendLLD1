@@ -73,6 +73,22 @@ public class Student {
         this.exam = new EntranceExam(exam); // uses EntranceExam's copy constructor
     }
 
+    Student(String name, int age, int studentID, EntranceExam exam, int batchID) {
+        this.name = name;
+        this.age = age;
+        this.studentID = studentID;
+        this.exam = new EntranceExam(exam);
+        // Because Batch has no int‐arg constructor, do:
+        this.batch = new Batch();       // 1) default‐construct
+        this.batch.batchID = batchID;   // 2) set the field manually
+    }
+    // 2-arg constructor calls 5-arg with age = 0, studentID = 0, exam = null
+    public Student(String name, Batch batch){
+        this(name,0,0, new EntranceExam(0, "NoExam"), batch.batchID);
+        // Each constructor eventually funnels into the 5-parameter constructor, centralizing initialization logic.
+        // This prevents forgetting to set exam if you add a new constructor later
+    }
+
     //Behaviours/Methods/Functions
     void submitAssignment(int assignmentID){
         System.out.println("Completed assignment " + assignmentID);

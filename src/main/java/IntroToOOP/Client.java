@@ -31,6 +31,12 @@ public class Client {
         System.out.println(s8.name);           // Bob
         System.out.println(s8.exam.examName);  // NEET
 
+        // Batch class only has the default (no-arg) constructor
+        Batch b1 = new Batch(); // calls the default no-arg constructor
+        b1.batchID = 2020; // set the field afterward
+        Student s9 = new Student("Alice", b1 );
+        // Student s9 = new Student("Alice", new Batch() {{ this.batchID = 2020; }}); // Double‐brace approach
+
         System.out.println("Hello World !!");
 
     }
