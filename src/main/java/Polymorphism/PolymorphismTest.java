@@ -60,8 +60,8 @@ public class PolymorphismTest {
         //✅ Downcasting allows access to subclass-specific methods safely.
 
         //Test Case 4: Invalid downcasting
-        Animal d = new Cat();
-        ((Dog) d).wagTail(); // ❌ Runtime error: ClassCastException
+        // Animal d = new Cat();
+        // ((Dog) d).wagTail(); // ❌ Runtime error: ClassCastException
         //❌ Throws ClassCastException because Trying to cast a Cat object to Dog reference — invalid
 
         // Test Case 5: Null reference call
