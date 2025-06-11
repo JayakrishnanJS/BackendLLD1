@@ -2,24 +2,41 @@ package Interface.TestCases;
 
 public class InterfaceTestCases {
 
+    /*
+     * This class demonstrates seven different use cases of Java interfaces.
+     * Each use case is encapsulated in a distinct static method (useCase1 … useCase7),
+     * and the main method invokes them in sequence.
+     * Explanatory comments before each method clarify the concept being shown.
+     */
+
+    // ------------------------------------------------------------------------
     // Use Case 1: Basic Interface Implementation
-    // Demonstrates how a class implements a basic interface and overrides its method
+    // ------------------------------------------------------------------------
+    // Concept: A class implements an interface by providing concrete implementations
+    //          of its abstract methods. Here, Dog implements the Animal interface.
     interface Animal {
         void makeSound();
     }
 
     static class Dog implements Animal {
+        @Override
         public void makeSound() {
             System.out.println("Dog says: Bark");
         }
     }
 
-    // Use Case 2: Multiple Interfaces
-    // Demonstrates a class implementing more than one interface
-    // Multiple interfaces mean that a single class can implement more than one interface.
-    // This allows a class to inherit method signatures from multiple sources and provide its own implementation for all of them.
-    // It overcomes the limitation in Java of single inheritance (a class can only extend one class).
+    public static void useCase1() {
+        System.out.println("Use Case 1: Basic Interface Implementation");
+        // Create an interface reference and assign it an instance of Dog.
+        Animal dog = new Dog();
+        dog.makeSound(); // Dynamic dispatch: Dog's makeSound() is called.
+    }
 
+    // ------------------------------------------------------------------------
+    // Use Case 2: Multiple Interfaces
+    // ------------------------------------------------------------------------
+    // Concept: A class can implement more than one interface, which lets it promise
+    //          to provide multiple sets of behavior. Duck implements both Flyable and Swimmable.
     interface Flyable {
         void fly();
     }
@@ -29,17 +46,29 @@ public class InterfaceTestCases {
     }
 
     static class Duck implements Flyable, Swimmable {
+        @Override
         public void fly() {
             System.out.println("Duck flies");
         }
 
+        @Override
         public void swim() {
             System.out.println("Duck swims");
         }
     }
 
+    public static void useCase2() {
+        System.out.println("Use Case 2: Multiple Interfaces");
+        Duck duck = new Duck(); // Duck can both fly and swim
+        duck.fly();
+        duck.swim();
+    }
+
+    // ------------------------------------------------------------------------
     // Use Case 3: Default Method in Interface
-    // Shows how default methods can provide implementation in interfaces
+    // ------------------------------------------------------------------------
+    // Concept: An interface can include a default method with an implementation.
+    //          Classes implementing the interface inherit that method unless they override it.
     interface Logger {
         default void log(String message) {
             System.out.println("Log: " + message);
@@ -47,54 +76,99 @@ public class InterfaceTestCases {
     }
 
     static class FileLogger implements Logger {
-        // Inherits the default log() method
+        // Inherits the default log() implementation from Logger.
+        // No need to override if default behavior is desired.
     }
 
     static class CustomLogger implements Logger {
         @Override
         public void log(String message) {
-            System.out.println("Custom Log: " + message); // Overrides default
+            System.out.println("Custom Log: " + message); // Override default behavior
         }
     }
 
+    public static void useCase3() {
+        System.out.println("Use Case 3: Default Method in Interface");
+        Logger fileLogger = new FileLogger();
+        fileLogger.log("Default logger working");
+
+        Logger customLogger = new CustomLogger();
+        customLogger.log("Overridden logger working");
+    }
+
+    // ------------------------------------------------------------------------
     // Use Case 4: Interface Inheritance
-    // Demonstrates an interface extending another interface (similar to class inheritance)
+    // ------------------------------------------------------------------------
+    // Concept: An interface can extend another interface, adding more methods.
+    //          Car extends Vehicle, so any class implementing Car must supply both start() and turnOnAC().
     interface Vehicle {
         void start();
     }
 
     interface Car extends Vehicle {
-        void turnOnAC(); // Additional method
+        void turnOnAC();
     }
 
     static class Sedan implements Car {
+        @Override
         public void start() {
             System.out.println("Car started");
         }
 
+        @Override
         public void turnOnAC() {
             System.out.println("AC is on");
         }
     }
 
+    public static void useCase4() {
+        System.out.println("Use Case 4: Interface Inheritance");
+        Car myCar = new Sedan();
+        myCar.start();
+        myCar.turnOnAC();
+
+        System.out.println("Using parent interface reference:");
+        Vehicle vehicleRef = new Sedan();
+        vehicleRef.start();
+        // vehicleRef.turnOnAC(); // Compile-time error: Vehicle interface does not declare turnOnAC()
+    }
+
+    // ------------------------------------------------------------------------
     // Use Case 5: Marker Interface
-    // An interface with no methods, used for tagging objects (e.g., Serializable, Cloneable)
-    // A Marker Interface is an interface with no methods or fields — it’s empty. It is used only to "mark" a class so that the compiler or JVM can treat it differently.
-    // Marker Interfaces are used for metadata tagging — no methods required.
-    // They are useful when you want to enable special processing without changing the class hierarchy or adding behavior directly.
+    // ------------------------------------------------------------------------
+    // Concept: A marker interface contains no methods. It marks a class as having some attribute.
+    //          Here, Serializable is used purely as a tag. 'instanceof' can check for it at runtime.
     interface Serializable {}
 
-    static class Data implements Serializable {} // Marked as serializable
+    static class Data implements Serializable {
+        // Class is “marked” as Serializable, even though no methods are defined in the interface.
+    }
 
-    static class NonSerializableData {} // Not marked
+    static class NonSerializableData {
+        // Not marked by Serializable.
+    }
 
+    public static void useCase5() {
+        System.out.println("Use Case 5: Marker Interface");
+        Data data = new Data();
+        NonSerializableData nonData = new NonSerializableData();
+
+        // Check at runtime whether objects implement the marker interface:
+        System.out.println("Data is Serializable: " + (data instanceof Serializable));
+        System.out.println("NonData is Serializable: " + (nonData instanceof Serializable));
+    }
+
+    // ------------------------------------------------------------------------
     // Use Case 6: Interface Reference to Concrete Class
-    // Demonstrates interface reference holding object and use of downcasting to access extra methods
+    // ------------------------------------------------------------------------
+    // Concept: An interface variable can hold a reference to any implementing class.
+    //          To call subclass-specific methods, you must downcast safely (using instanceof).
     interface Shape {
         void draw();
     }
 
     static class Circle implements Shape {
+        @Override
         public void draw() {
             System.out.println("Drawing Circle");
         }
@@ -104,13 +178,27 @@ public class InterfaceTestCases {
         }
     }
 
+    public static void useCase6() {
+        System.out.println("Use Case 6: Interface Reference to Concrete Class");
+        Shape shapeRef = new Circle(); // Upcasting: Circle → Shape
+        shapeRef.draw();
+
+        // To access Circle-specific methods, we check and downcast:
+        if (shapeRef instanceof Circle) {
+            ((Circle) shapeRef).extraMethod();
+        }
+    }
+
+    // ------------------------------------------------------------------------
     // Use Case 7: Type Casting and instanceof with Interface
-    // Demonstrates checking and casting to a more specific type, and catching runtime exceptions
+    // ------------------------------------------------------------------------
+    // Concept: Use instanceof to check the actual type before downcasting to avoid ClassCastException.
     interface Printer {
         void print();
     }
 
     static class InkjetPrinter implements Printer {
+        @Override
         public void print() {
             System.out.println("Inkjet printing...");
         }
@@ -120,101 +208,50 @@ public class InterfaceTestCases {
         }
     }
 
-    // Run Use Case 1
-    public static void useCase1() {
-        System.out.println("Basic Implementation:");
-        Animal dog = new Dog(); // Interface reference holding implementation
-        dog.makeSound(); // Dynamic dispatch
-    }
-
-    // Run Use Case 2
-    public static void useCase2() {
-        Duck duck = new Duck(); // Implements multiple interfaces
-        duck.fly();
-        duck.swim();
-    }
-
-    // Run Use Case 3
-    public static void useCase3() {
-        Logger logger = new FileLogger(); // Uses default method
-        logger.log("Default logger working");
-
-        Logger custom = new CustomLogger(); // Uses overridden method
-        custom.log("Overridden logger working");
-    }
-
-    // Run Use Case 4
-    public static void useCase4() {
-        Car car = new Sedan(); // Implements interface inheritance
-        car.start();
-        car.turnOnAC();
-
-        System.out.println("Parent Interface Reference:");
-        Vehicle v = new Sedan();
-        v.start();
-        // v.turnOnAC(); // Compile error: method not in Vehicle interface
-    }
-
-    // Run Use Case 5
-    public static void useCase5() {
-        Data data = new Data();
-        NonSerializableData nonData = new NonSerializableData();
-
-        // Check if object implements marker interface
-        System.out.println("Data is Serializable: " + (data instanceof Serializable));
-        System.out.println("NonData is Serializable: " + (nonData instanceof Serializable));
-    }
-
-    // Run Use Case 6
-    public static void useCase6() {
-        Shape shape = new Circle(); // Upcasting
-        shape.draw();
-
-        System.out.println("Casting Shape to Circle:");
-        if (shape instanceof Circle) {
-            ((Circle) shape).extraMethod(); // Downcasting to access specific method
-        }
-    }
-
-    // Run Use Case 7
     public static void useCase7() {
+        System.out.println("Use Case 7: Type Casting and instanceof with Interface");
         Printer printer = new InkjetPrinter();
         printer.print();
 
+        // Safe downcast after instanceof check:
         if (printer instanceof InkjetPrinter) {
-            ((InkjetPrinter) printer).refillInk(); // Safe downcast
+            ((InkjetPrinter) printer).refillInk();
         }
 
         System.out.println("Invalid Cast Test:");
         try {
-            // Unsafe cast: runtime error
+            // Unsafe cast: Printer is not a Circle, so this will throw ClassCastException:
             Circle notAPrinter = (Circle) printer;
         } catch (ClassCastException e) {
             System.out.println("Caught expected ClassCastException");
         }
     }
 
-    // Entry point
+    // ------------------------------------------------------------------------
+    // Main Method: Invoke all use case methods in sequence
+    // ------------------------------------------------------------------------
     public static void main(String[] args) {
-        System.out.println("Use Case 1:");
+        System.out.println("=== Interface Use Cases Demonstration ===\n");
+
         useCase1();
+        System.out.println();
 
-        System.out.println("\nUse Case 2:");
         useCase2();
+        System.out.println();
 
-        System.out.println("\nUse Case 3:");
         useCase3();
+        System.out.println();
 
-        System.out.println("\nUse Case 4:");
         useCase4();
+        System.out.println();
 
-        System.out.println("\nUse Case 5:");
         useCase5();
+        System.out.println();
 
-        System.out.println("\nUse Case 6:");
         useCase6();
+        System.out.println();
 
-        System.out.println("\nUse Case 7:");
         useCase7();
+        System.out.println("\n=== End of Demonstration ===");
     }
 }
