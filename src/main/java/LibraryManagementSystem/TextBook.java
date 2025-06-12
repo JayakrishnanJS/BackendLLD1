@@ -9,16 +9,8 @@ public class TextBook extends Book {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public int getEdition() {
         return edition;
-    }
-
-    public void setEdition(int edition) {
-        this.edition = edition;
     }
 
     TextBook(String isbn, String title, String author, String subject, int edition) {
