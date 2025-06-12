@@ -8,6 +8,7 @@ import java.util.concurrent.Future;
 public class Client {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
+        // This Adder Subtractor is to visualize Synchronization problem, which is explained in concurrency3
         Value value = new Value();
         value.setVal(0);
 
@@ -25,3 +26,5 @@ public class Client {
         System.out.println(value.getVal());
     }
 }
+
+// Expected output is Zero, but due to not handling mutual exclusion of threads, output is wrong.
