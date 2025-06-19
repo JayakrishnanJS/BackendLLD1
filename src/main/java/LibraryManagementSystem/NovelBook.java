@@ -3,8 +3,8 @@ package LibraryManagementSystem;
 public class NovelBook extends Book {
     private String genre;
 
-    NovelBook(String isbn, String title, String author, String genre) {
-        super(isbn, title, author);
+    NovelBook(String isbn, String title, String author, BookType type, String genre) {
+        super(isbn, title, author, type);
         this.genre = genre;
     }
 

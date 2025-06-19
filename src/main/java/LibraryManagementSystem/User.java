@@ -1,17 +1,18 @@
 package LibraryManagementSystem;
 
 public abstract class User {
-
+// since in library there are only members and librarian, no new Entity can come => make user abstract
     private String userId;
     private String name;
     private String contactInfo;
     private static int totalUsers = 0;// attached to class, like a global variable for all the instances of the user and its subclasses
 
     User() {
-        userId = generateUniqueId();
+        this.userId = generateUniqueId();
     }
 
     User(String name, String contactInfo) {
+        this.userId = generateUniqueId(); // this is optional here because there is no method parameter with name userId
         this.name = name;
         this.contactInfo = contactInfo;
     }

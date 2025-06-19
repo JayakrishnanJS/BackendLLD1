@@ -13,8 +13,8 @@ public class TextBook extends Book {
         return edition;
     }
 
-    TextBook(String isbn, String title, String author, String subject, int edition) {
-        super(isbn, title, author);
+    TextBook(String isbn, String title, String author, BookType type, String subject, int edition) {
+        super(isbn, title, author, type);
         this.subject = subject;
         this.edition = edition;
     }
