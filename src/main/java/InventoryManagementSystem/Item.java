@@ -1,6 +1,7 @@
 package InventoryManagementSystem;
 
 public class Item implements Comparable<Item>{
+    // to compare one objects passed in argument with the current object, use Comparable interface
     private String id;
     private String name;
     private double price;

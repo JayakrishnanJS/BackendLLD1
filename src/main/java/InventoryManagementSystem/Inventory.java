@@ -11,8 +11,19 @@ public class Inventory <T extends Item>{
         items = new HashMap<>();
     }
 
-    public void addItem(T item) {
-        items.put(item.getId(), item);
+    public void addItem(T item) throws InvalidQuantityException {
+        if(item.getQuantity() < 0){
+            // checked exception
+            throw new InvalidQuantityException("Quantity less than zero is invalid");
+        }
+
+        if(items.containsKey(item.getId())){
+            //System.out.println("Item with id " + item.getId() + " already exists in inventory");
+            //return;
+            // unchecked or runtime exception
+            throw new DuplicateItemException("Item with id " + item.getId() + " already exists in inventory");
+        }
+        items.put(item.getId(), item); // Add the item to the inventory
     }
 
     public void removeItem(T item) {
@@ -23,8 +34,15 @@ public class Inventory <T extends Item>{
         items.remove(itemId);
     }
 
-    public T getItem(String itemId) {
-        return items.get(itemId);
+    public T getItem(String itemId) throws ItemNotFoundException {
+        if (!items.containsKey(itemId)) {
+            //System.out.println("Item with ID '" + itemId + "' does not exist in the inventory.");
+            //return null; // Return null to indicate absence of the item
+
+            // If the ID is not found, explicitly throwing the exception
+            throw new ItemNotFoundException("Item with ID '" + itemId + "' does not exist in the inventory.");
+        }
+        return items.get(itemId); // Otherwise, return the item
     }
 
     public List<T> getAllItems(){
@@ -55,6 +73,21 @@ public class Inventory <T extends Item>{
         List<T> sortedItems = new ArrayList<>(getAllItems());
         Collections.sort(sortedItems,comparator);
         return sortedItems;
+    }
+
+    public void updateItem(T item) throws ItemNotFoundException{
+        if (item == null) {
+            throw new IllegalArgumentException("Item cannot be null");
+        }
+        if (item.getId() == null) {
+            throw new IllegalArgumentException("Item ID cannot be null");
+        }
+        if(items.containsKey(item.getId())){
+            items.put(item.getId(), item);
+        }else{
+            //System.out.println("Item with id " + item.getId() + " does not exist in inventory");
+            throw new ItemNotFoundException("Item with id " + item.getId() + " does not exist in inventory");
+        }
     }
 }
 

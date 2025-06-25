@@ -4,23 +4,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CustomerWishList {
-    private Set<Item> wishList;
+    private Set<Item> items;
 
     public CustomerWishList() {
-        this.wishList = new HashSet<>();
+        this.items = new HashSet<>();
     }
 
     public void addItemToWishList(Item item) {
-        wishList.add(item);
+        items.add(item);
     }
 
-    public void removeItemFromWishList(Item item) {
-        wishList.remove(item);
+    public Set<Item> getWishListItems() {
+        return new HashSet<>(items);
     }
 
-    public void displayWishList() {
-        for (Item item : wishList) {
-            System.out.println(item.getName());
-        }
+    public int getSize(){
+        return items.size();
     }
 }

@@ -3,7 +3,7 @@ package InventoryManagementSystem;
 import java.util.Comparator;
 
     public class ItemPriceComparator<T extends Item> implements Comparator<Item> {
-
+// to compare 2 objects passed in arguments, use Comparator interface
         @Override
         public int compare(Item o1, Item o2) {
             // if we want to sort by ascending order of price
