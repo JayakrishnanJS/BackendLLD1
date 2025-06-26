@@ -10,6 +10,7 @@ public class Student {
     // Checked exceptions - These are exceptions that inherit from `java.lang.Exception` but not from `RuntimeException`
     // the Java compiler enforces that these exceptions must either be handled using a
     // `try-catch` block or declared using the `throws` keyword in the method signature.
+    // The code will not compile due to a checked exception if the exception is not handled in code.
     static void find(int x) throws FileNotFoundException {
         if(x % 2 == 0){
             throw new ArithmeticException();
@@ -27,6 +28,8 @@ public class Student {
 
     // Unchecked exceptions (runtime exceptions)- These are exceptions that inherit from `RuntimeException`
     // The Java compiler does not enforce any requirement to declare them with `throws`, nor does it require handling them with `try-catch`.
+    // code will compile, but gives run time error if the exception is not handled in code.
+
     // custom run time exception by creating a class
     static void myException(){
         throw new MyOwnException("This is my own exception");

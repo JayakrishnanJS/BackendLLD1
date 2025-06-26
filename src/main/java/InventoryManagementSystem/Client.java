@@ -1,9 +1,6 @@
 package InventoryManagementSystem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.*;
 
 public class Client {
@@ -350,6 +347,14 @@ public class Client {
                         + item.getQuantity() + ", Price: " + item.getPrice() + ", Type: " + item.getClass().getSimpleName())
                 .forEach(System.out::println);
 
+        System.out.println("------- Calculate total inventory value (using parallelStream) ---------");
+        double totalInventoryValue = inventory.getAllItems()
+                .parallelStream() // Process items in parallel to speed up computation for large inventories
+                .mapToDouble(item -> item.getPrice() * item.getQuantity()) // Calculate the total value for each item
+                .sum(); // Sum up all values
+        // here mapping works in parallel, and once it is completed, summing is done in parallel.
+        System.out.println("Total Inventory Value: " + totalInventoryValue);
+
         System.out.println("------  Task 5 ------");
         System.out.println("------  Create and use custom exceptions for domain-specific errors ------");
         System.out.println("Define an InvalidQuantityException to handle cases where an item’s quantity is set to a negative value.\n" +
@@ -368,9 +373,10 @@ public class Client {
         System.out.println("------ Test Case 2: Add a duplicate item ------");
         try {
             inventory.addItem(item1); // Invalid: DuplicateItemException should be thrown
-        } catch (DuplicateItemException e) {
+        } catch (DuplicateItemException e) { // unchecked exception - if not handled in catch
+            // -> no compile time error, error is shown in console during runtime.
             System.out.println(e.getMessage());
-        } catch (InvalidQuantityException e) {
+        } catch (InvalidQuantityException e) { // checked exception - compile error, code won't execute if not handled in catch
             System.out.println(e.getMessage());
         }
 
@@ -407,9 +413,37 @@ public class Client {
         } finally {
             System.out.println("Closing the inventory");
         }
-        inventory.getAllItems().stream()
-                .map(item -> "ID: " + item.getId() + ", Name: " + item.getName() + ", Quantity: "
-                        + item.getQuantity() + ", Price: " + item.getPrice() + ", Type: " + item.getClass().getSimpleName())
-                .forEach(System.out::println);
+
+        System.out.println("------- Task 7 -------");
+        System.out.println("-------  Goal: Simulate inventory input and processing using try-with-resources-------");
+        // Any resource used (like a file or a database connection) is automatically closed after the execution of the try block.
+        // Using try-with-resources for a Scanner to simulate inventory input
+        //Scanner scanner = null;
+        try (Scanner scanner = new Scanner(System.in)) {
+            //scanner = new Scanner(System.in);
+            System.out.println("Enter Item Name: ");
+            String itemName = scanner.nextLine();
+
+            System.out.println("Enter Item Price: ");
+            double itemPrice = scanner.nextDouble();
+
+            System.out.println("Enter Item Quantity: ");
+            int itemQuantity = scanner.nextInt();
+
+            // Simulating Inventory Operation
+            System.out.println("Item added to inventory:");
+            System.out.println("Name: " + itemName + ", Price: " + itemPrice + ", Quantity: " + itemQuantity);
+        } catch (Exception e) {
+            System.err.println("An error occurred while processing inventory.");
+        } /*
+        finally {
+           if (scanner != null) {
+                scanner.close(); // Always close the resource in finally to avoid leaks
+                System.out.println("Scanner closed.");
+            }
+        }
+        */
+        // all scanner relatedly commented lines and finally block is required if without try-with-resources
+        System.out.println("Inventory processing completed successfully.");
     }
 }

@@ -13,14 +13,30 @@ public class Inventory <T extends Item>{
 
     public void addItem(T item) throws InvalidQuantityException {
         if(item.getQuantity() < 0){
-            // checked exception
+            // checked exception or compile time exception-
+            // A negative quantity is a known,
+            // predictable input validation error and highlights a clear invalid state for an `Item`.
+            // It is something that should ideally be handled by the caller
+            // the 'throws' keyword in the method declaration indicates that the developer is not fixing
+            // or resolving the issue in the method itself,
+            // but instead requires the caller to acknowledge and handle it explicitly
+            // The caller is whatever piece of code interacts with the `addItem` method.(Client or any method or end user)
             throw new InvalidQuantityException("Quantity less than zero is invalid");
         }
 
         if(items.containsKey(item.getId())){
             //System.out.println("Item with id " + item.getId() + " already exists in inventory");
             //return;
-            // unchecked or runtime exception
+
+            // unchecked or runtime exception -
+            // reflects issues that are generally unexpected or unacceptable under normal operating conditions
+            // and shouldn't need a formal mechanism for error handling at runtime.
+            // the developer detects the issue but doesn't enforce the caller to handle it explicitly
+            // The absence of `throws`
+            // means this issue is treated as less critical or predictable for the caller to handle.
+            // - the exception is thrown and might
+            //    - Crash the program.
+            //    - Halt execution, unless the caller has explicitly chosen to catch it.
             throw new DuplicateItemException("Item with id " + item.getId() + " already exists in inventory");
         }
         items.put(item.getId(), item); // Add the item to the inventory
