@@ -33,8 +33,8 @@ public class Person {
     }
 
     // The method assumes that `id` uniquely identifies a person
-    // return true - added to the same bucket
-    // return false - not added
+    // return true => already added to the same bucket => do not add again
+    // return false => not added before => need to add now
     @Override
     public boolean equals(Object obj) {
         if (this == obj) { // 1. Check if the objects are the same reference
