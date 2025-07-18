@@ -10,7 +10,7 @@ public class Bank {
     private int[][] allocation; // What each customer has borrowed
     private int[][] need;       // Remaining credit need
 
-    public Bank(int[] available, int[][] maximum) {
+    public Bank(int[] available, int[][] maximum, int[][] allocation) {
         this.PROCESS_COUNT  = maximum.length;
         this.RESOURCE_COUNT = available.length;
         this.available      = Arrays.copyOf(available, RESOURCE_COUNT);
@@ -18,10 +18,13 @@ public class Bank {
         this.allocation     = new int[PROCESS_COUNT][RESOURCE_COUNT];
         this.need           = new int[PROCESS_COUNT][RESOURCE_COUNT];
 
+        // copy maximum & allocation, then compute need = max - alloc
         for (int i = 0; i < PROCESS_COUNT; i++) {
             System.arraycopy(maximum[i], 0, this.maximum[i], 0, RESOURCE_COUNT);
-            Arrays.fill(this.allocation[i], 0);
-            System.arraycopy(maximum[i], 0, this.need[i], 0, RESOURCE_COUNT);
+            System.arraycopy(allocation[i], 0, this.allocation[i], 0, RESOURCE_COUNT);
+            for (int j = 0; j < RESOURCE_COUNT; j++) {
+                this.need[i][j] = this.maximum[i][j] - this.allocation[i][j];
+            }
         }
     }
 
@@ -108,5 +111,10 @@ public class Bank {
     /** Snapshot of remaining need for a customer */
     public synchronized int[] getNeed(int customerId) {
         return Arrays.copyOf(need[customerId], RESOURCE_COUNT);
+    }
+
+    /** Thread-safe snapshot of how much cash the bank has on hand */
+    public synchronized int[] getAvailable() {
+        return Arrays.copyOf(available, available.length);
     }
 }

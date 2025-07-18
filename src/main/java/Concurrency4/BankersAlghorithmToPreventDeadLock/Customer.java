@@ -16,10 +16,17 @@ public class Customer extends Thread {
     public void run() {
         try {
             while (true) {
-                int[] currentNeed = bank.getNeed(id);
-                int[] req = new int[currentNeed.length];
+                // ← new bounded-random code: You first fetch both need[] and available[].
+                //For each resource j, you compute bound = min( need[j], available[j] ).
+                //Then req[j] is randomly chosen in [0…bound], so you never ask the bank for more than it can give.
+                int[] currentNeed       = bank.getNeed(id);
+                int[] currentAvailable  = bank.getAvailable();
+                int[] req               = new int[currentNeed.length];
                 for (int j = 0; j < req.length; j++) {
-                    req[j] = rand.nextInt(currentNeed[j] + 1);
+                    int bound = Math.min(currentNeed[j], currentAvailable[j]);
+                    req[j] = bound > 0
+                            ? rand.nextInt(bound + 1)
+                            : 0;
                 }
 
                 if (bank.requestLoan(id, req)) {
