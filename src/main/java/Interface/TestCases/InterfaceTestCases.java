@@ -182,6 +182,7 @@ public class InterfaceTestCases {
         System.out.println("Use Case 6: Interface Reference to Concrete Class");
         Shape shapeRef = new Circle(); // Upcasting: Circle → Shape
         shapeRef.draw();
+        //shapeRef.extraMethod(); // cannot directly access circle methods from shape reference
 
         // To access Circle-specific methods, we check and downcast:
         if (shapeRef instanceof Circle) {

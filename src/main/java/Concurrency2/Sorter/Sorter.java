@@ -15,7 +15,7 @@ public class Sorter implements Callable<List<Integer>>{
         this.executor = executorService;
     }
 
-        // task : to sort a array using mergeSort
+        // task : to sort an array using mergeSort
         // I can't pass the arguments
     @Override
     public List<Integer> call() throws Exception {
@@ -30,9 +30,8 @@ public class Sorter implements Callable<List<Integer>>{
         List<Integer> rightArray = arrayToSort.subList(mid, arrayToSort.size());
 
         // sort the leftArray in another thread
-
-       Sorter leftArraySorter = new Sorter(leftArray, executor);
-       Sorter rightArraySorter = new Sorter(rightArray, executor);
+        Sorter leftArraySorter = new Sorter(leftArray, executor);
+        Sorter rightArraySorter = new Sorter(rightArray, executor);
 
         // ExecutorService executorService = Executors.newFixedThreadPool(2);
         // if executorService object is not passed to Sorter and is defined inside Sorter, during every function call in recursion,
@@ -71,7 +70,6 @@ public class Sorter implements Callable<List<Integer>>{
             sortedArray.add(sortedRightArray.get(j));
             j += 1;
         }
-
         return sortedArray;
     }
 }

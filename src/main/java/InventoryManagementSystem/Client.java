@@ -305,6 +305,7 @@ public class Client {
                 .stream()
                 .map(item -> item.getQuantity())
                 .reduce(0, (totalSum, quantity) -> {
+                    // syntax : (U accumulated, T element) -> U newAccumulated.
                     return totalSum + quantity;
                 });
         System.out.println("Total quantity : " + total1);
@@ -405,7 +406,7 @@ public class Client {
         try {
             System.out.println(inventory.getItem("Item-15")); // Valid ID: Should print the item's address
             System.out.println(inventory.getItem("Item-25")); // Invalid ID: Should throw exception
-            // Item with ID 'Item-22' does not exist in the inventory.
+            // Item with ID 'Item-25' does not exist in the inventory.
             System.out.println(inventory.getItem("Item-26")); // Won't execute this line since control is now with catch block
         } catch (ItemNotFoundException e) {
             // Handling the custom exception and displaying it as an error in the console.

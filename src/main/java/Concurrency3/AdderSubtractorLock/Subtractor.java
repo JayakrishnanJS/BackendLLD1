@@ -14,14 +14,12 @@ public class Subtractor implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
-        // lock.lock(); // if lock and unlock is put outside loop first complete addition takes place and then subtraction
-        for (int i = 1; i <= 10000; i++) { // Loop is thread-safe and doesn't need protection
-            lock.lock(); // Acquire the lock before entering the critical section
+        for (int i = 1; i <= 10000; i++) {
+            lock.lock();
             System.out.println("Subtracting : " + i);
             value.setVal(value.getVal() - i); // Critical section: modifying the shared resource
-            lock.unlock(); // Release the lock to allow other threads to acquire it
+            lock.unlock();
         }
-        // lock.unlock(); //
         return null;
     }
 }

@@ -8,6 +8,7 @@ public class Animal {
     Animal(){
         name = "Animal";
         animalID = 2;
+        System.out.println("Animal constructor called.");
     }
 
     void eat(){

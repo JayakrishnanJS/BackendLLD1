@@ -10,6 +10,6 @@ public class Value {
     }
 
     public void setVal(AtomicInteger val) {
-        this.val = new AtomicInteger();
+        this.val = val;
     }
 }

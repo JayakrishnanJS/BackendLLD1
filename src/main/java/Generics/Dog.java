@@ -10,4 +10,9 @@ public class Dog extends Mammal {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String bark() {
+        return "Woof";
+    }
+
 }

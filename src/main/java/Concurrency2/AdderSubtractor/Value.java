@@ -12,6 +12,6 @@ public class Value {
     }
 }
 // Represents the shared resource with a value that multiple threads will read and modify.
-// we are not passing integers to add and subtract directly since those are pass
-// by Value and they works without Synchronization. We are passing Objects with integer instances so that we are mimicing pass by
-// Reference.
+// we are not passing integers to add and subtract directly since those are 'pass-
+// by value' and they work without Synchronization. We are passing Objects with integer instances so that we are mimicking 'pass by
+// reference'.

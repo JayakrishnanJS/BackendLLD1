@@ -4,11 +4,13 @@ public class PolymorphismTest {
     public static void main(String[] args) {
 
         System.out.println("===== Runtime Polymorphism (Method Overriding) =====");
-        // Compile-Time Polymorphism (Method Overloading)
+        // Runtime Polymorphism (Method Overriding)
 
         Animal genericAnimal = new Animal();
         Animal dog = new Dog();
         Animal cat = new Cat();
+        //  In Java, we can assign a subclass object to a superclass reference, but not the other way around.
+        //Dog dog1 = new Animal(); //java: incompatible types: Polymorphism.Animal cannot be converted to Polymorphism.Dog
 
         System.out.print("Test 1 (Generic Animal): ");
         genericAnimal.speak(); // Expected: Animal speaks

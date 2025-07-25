@@ -15,4 +15,5 @@ public class NumberGenerator implements Callable<Integer> {
     public Integer call() throws Exception {
         return input * 5;
     }
+    // call method can return any generic type, here Integer
 }

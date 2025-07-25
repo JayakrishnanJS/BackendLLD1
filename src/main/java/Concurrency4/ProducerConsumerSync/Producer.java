@@ -9,8 +9,7 @@ public class Producer implements Runnable{
 
     @Override
     public void run() {
-//        a producer should always keep on producing
-
+//  a producer should always keep on producing
         while(true){
             synchronized (store){
                 if(store.getItems().size() < store.getMaxSize()){

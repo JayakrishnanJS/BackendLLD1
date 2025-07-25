@@ -1,6 +1,6 @@
 package AccessModifier;
 /*
- * FinalStaticNotes.java
+ * FinalStaticClient.java
  *
  * This file provides detailed notes on the usage of the 'final' and 'static' keywords in Java,
  * along with a working example.
@@ -39,7 +39,7 @@ package AccessModifier;
  * Run this application to see the output, which shows how many instances are created and
  * displays the constant.
  */
-public class FinalStaticNotes {
+public class FinalStaticClient {
     public static void main(String[] args) {
         // Call the static method without having to create an instance.
         StaticFinalExample.showMaxLimit();
@@ -51,5 +51,10 @@ public class FinalStaticNotes {
         // Display information to see the behavior of final and static members.
         example1.showInfo();
         example2.showInfo();
+
+        // `final` or Effectively Final in Lambda Functions
+        // When working with lambda expressions or anonymous classes, any local variable used inside the lambda
+        // must be declared as `final` or effectively final
+        new StaticFinalExample(5).showScope();// showScope is not a static method
     }
 }

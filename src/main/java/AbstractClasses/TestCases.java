@@ -14,7 +14,7 @@ public class TestCases {
         }
 
         // Use Case 1: Basic Abstract Class with Abstract Method
-        static void useCase1() {
+        static void useCase1() { // local class
             abstract class Animal {
                 abstract void makeSound();
             }
@@ -158,3 +158,8 @@ public class TestCases {
             phone.powerOff();
         }
     }
+// A local class is a class that is declared inside a method (or block of code, such as a `for` loop or `if` statement).
+//- They are declared inside methods, constructors, or blocks.
+//- They are not visible outside the enclosing method or block.
+//- They behave like regular classes but with a constrained scope.
+//- They are ideal for use cases where the class is used only in a specific method or local context.

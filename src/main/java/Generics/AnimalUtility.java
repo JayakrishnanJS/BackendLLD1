@@ -14,10 +14,14 @@ public class AnimalUtility {
     // `List<T>` as its argument, which means it expects a list of objects of type `T`.
     // Since `T` is restricted to be a subclass of `Animal`, the list can only contain `Animal` instances or instances of its subclasses.
 
-    // Bounds in Generics refer to the constraints that are applied on generic types or wildcards to make them more specific.
+    // Bounds in Generics refer to the constraints(restrictions) that are applied on generic types or wildcards
+    // to make them more specific.
+    // we can specify that a method accepts a type and all its subclasses (upper bound) or a type and all
+    // its superclasses (lower bound).
     // They help to restrict the range of types that can be used with a generic method or class
     // Handle Polymorphism in a type-safe way by providing support for bounds using wildcard
     // The `?` is a wildcard in generics, meaning it represents an unknown type.
+
     public static void printAnimal(List<? extends Animal> animals) {
         // ? extends wildcard allows you to use a type and its subclasses (upper bound).
         // - extends is used to read data from a collection or method when you know you need a
@@ -31,11 +35,13 @@ public class AnimalUtility {
             System.out.println(animal.getName());
         }
     }
-    void addSomeDogs(List<? super Dog> temp) {
+    static void addSomeDogs(List<? super Dog> temp, String name) {
         // ? super wildcard allows you to use a type and its superclasses (lower bound).
         // - super is used to insert data into a collection when you know you'll only add specific subtypes of a type.
         // - Only write operations are allowed since We can add/insert elements of type `Dog` or its subclasses into the list because the list is guaranteed to accept them
-        temp.add(new Dog());
+        Dog d = new Dog();
+        d.setName(name);
+        temp.add(d);
         // - we cannot safely read specific types other than `Object`, because the compiler cannot guarantee the actual type of the list
         // - Since the exact runtime type (e.g., `List<Animal>`, `List<Object>`) is unknown, the compiler forces you to only read elements as `Object`.
         Object obj = temp.get(0);  // Allowed
@@ -51,4 +57,5 @@ public class AnimalUtility {
 //    void addSomeDogs(List<Dog> temp) {
 //        temp.add(new Dog());
 //    }
+
 }

@@ -4,7 +4,6 @@ public class Client {
     public static void main(String[] args) {
         Store store = new Store(5);
 
-
         for(int i = 0; i < 8; i++){
             Producer producer = new Producer(store);
             new Thread(producer).start();

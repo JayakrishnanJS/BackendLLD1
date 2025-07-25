@@ -14,7 +14,6 @@ public class NumberPrinter implements Runnable {
         System.out.println("Number : " + noToPrint + " Thread : " + Thread.currentThread().getName());
     }
 
-
     // The run method executes when the thread starts
     @Override
     public void run() {

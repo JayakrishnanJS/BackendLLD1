@@ -12,4 +12,4 @@ public class NumberPrinter implements Runnable{
         System.out.println("Number : " + noToPrint + " Thread : " + Thread.currentThread().getName()) ;
     }
 }
-// run method doesn't take any argument
+// run method doesn't take any argument and cannot return anything

@@ -14,7 +14,7 @@ public class EntranceExam {
     // without having to manually write:
     // new EntranceExam(other.examID, other.examName);
     EntranceExam(EntranceExam other){
-        examID = other.examID;;
+        examID = other.examID;
         examName = other.examName;
     }
 }

@@ -12,7 +12,7 @@ public class Dog extends Mammals{
     Constructor chaining	                      super() is called first (implicitly or explicitly), always before child constructor body
     */
     Dog(){
-//        Animal();  // Java *automatically* calls super class constructors in order.
+//        Animal();  // Java automatically calls super class constructors in order.
 //        Mammals(); // before data member of Dog are initialized, constructor of Animal & Mammals are called automatically
 //        super(); // refers to the immediate parent class automatically by java if there is a default or no-args constructor in parent class
         // we can also control whether we use parent's method or child's method using super.parent_method_name();

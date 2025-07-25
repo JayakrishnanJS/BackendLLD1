@@ -16,6 +16,7 @@ public class Client {
         Subtractor subtractor = new Subtractor(value);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
+        // Java ExecutorService implementations let you stay focused on tasks that need to be run, rather than thread creation and management.
 
         Future<Void> adderFuture = executorService.submit(adder);
         Future<Void> subtractorFuture = executorService.submit(subtractor);
@@ -24,7 +25,8 @@ public class Client {
         subtractorFuture.get();
 
         System.out.println(value.getVal());
+        executorService.shutdown();
     }
 }
-
 // Expected output is Zero, but due to not handling mutual exclusion of threads, output is wrong.
+
