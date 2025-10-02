@@ -1,20 +1,28 @@
 package DesignPatterns.Creational.SingleTon.V3;
 
 public class DatabaseConnectionPool {
-    // 3. Thread-safety - Eager initialisation
-    private static DatabaseConnectionPool instance = new DatabaseConnectionPool();
-    // 1. Constructor Hiding - private or protected
-    private DatabaseConnectionPool(){
+    // 1. Thread-safety: Eager initialization creates the instance
+    //    at class loading time. This is inherently thread-safe.
+    private static final DatabaseConnectionPool instance = new DatabaseConnectionPool();
 
-    }
-    // 2. Global access point - static
-    static synchronized DatabaseConnectionPool getInstance(){
+    // 2. Constructor Hiding - private so no other class can instantiate
+    private DatabaseConnectionPool(){ }
+
+    // 3. Global access point
+    static DatabaseConnectionPool getInstance(){
         return instance;
     }
-}/*
-        a. Performance issue: Increases application start time because the object is created when a class is initialized
-        b. If this shared object is not required, this is useless.
-        c. Custom configuration - we need some information from a third party and initialize DB constructor based on that,
-                                  but here object is created before constructor initialisation and hence custom configuration
-                                  is not possible
+}
+/*
+Eager Initialization Singleton:
+--------------------------------
+Pros:
+- Simple and thread-safe (instance created at class load time).
+- No synchronization overhead on getInstance().
+
+Cons:
+a. Slower application startup (object is created immediately).
+b. Wasteful if the instance is never used.
+c. No flexibility for custom configuration (e.g., needing external
+   parameters before creating the instance).
 */

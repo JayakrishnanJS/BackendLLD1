@@ -2,7 +2,6 @@ package DesignPatterns.Structural.Flyweight.V1;
 
 import DesignPatterns.Structural.Flyweight.util.MemoryCalculator;
 import java.util.*;
-import static DesignPatterns.Structural.Flyweight.V1.BulletFactory.getBulletType;
 
 public class Game {
     public static void main(String[] args) {

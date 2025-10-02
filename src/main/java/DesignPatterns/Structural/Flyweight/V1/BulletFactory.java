@@ -4,7 +4,7 @@ import java.util.*;
 
 // the factory returns a shared `BulletType` instead of creating new data for each bullet
 public class BulletFactory {
-    // Map typeId → shared BulletType
+    // Map typeId → shared BulletType as flyweight
     private static final Map<Integer, BulletType> types = new HashMap<>();
     // Map typeId → list of created FlyingBullets (optional tracking)
     private static final Map<Integer, List<FlyingBullet>> bulletsByType = new HashMap<>();
