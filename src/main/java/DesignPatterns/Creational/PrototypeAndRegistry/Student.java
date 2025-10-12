@@ -87,6 +87,7 @@ public class Student implements Prototype<Student>{
     }
 
     // control the flow of copying
+    @Override
     public Student copy(){
         return new Student(this);
     }

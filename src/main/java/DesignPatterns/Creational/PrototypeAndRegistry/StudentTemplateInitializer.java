@@ -3,7 +3,7 @@ package DesignPatterns.Creational.PrototypeAndRegistry;
 public class StudentTemplateInitializer {
 
     // initialize the registry with predefined student templates that can be copied and reused later for new objects
-    public void initializeTemplates() {
+    public static void initializeTemplates() {
         StudentRegistry registry = StudentRegistry.INSTANCE;
 
         Student dataScienceStudent = new Student(2020, 1 , "Rahul", 90.0); // mandatory basic student info

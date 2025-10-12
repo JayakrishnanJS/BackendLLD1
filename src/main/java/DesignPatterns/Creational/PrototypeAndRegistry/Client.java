@@ -63,8 +63,12 @@ public class Client {
 
         // 1) Create & populate one registry for all type of students
         // Initialize once in the client. If we want lazy initialization, make TemplateInitializer to return this instance as in double-checked locking
-        new StudentTemplateInitializer().initializeTemplates();
-        StudentRegistry registry = StudentRegistry.INSTANCE;
+        //new StudentTemplateInitializer().initializeTemplates();
+        //StudentRegistry registry = StudentRegistry.INSTANCE;
+
+        // 1) Get the singleton instance but program to the interface.
+        // This is the only place the client is aware of the concrete 'StudentRegistry' class.
+        PrototypeRegistry registry = StudentRegistry.INSTANCE;
 
         // 2) Copy a plain DEVOPS student
         Student devopsStudentClone = registry.get(StudentType.DEVOPS);
@@ -93,7 +97,7 @@ Prototype allows us to hide the complexity of making new instances from the clie
 The concept is to copy an existing object rather than creating a new instance from
 scratch, something that may include costly operations. The existing object acts as a
 prototype and contains the state of the object. The newly copied object may change
-same properties only if required. This approach saves costly resources and time,
+the same properties only if required. This approach saves costly resources and time,
 especially when object creation is a heavy process.
 
 Prototype Registry:
