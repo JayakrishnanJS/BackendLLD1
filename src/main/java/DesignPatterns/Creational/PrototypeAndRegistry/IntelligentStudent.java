@@ -33,6 +33,7 @@ public class IntelligentStudent extends Student {
         this.iq = iq;
     }
 
+    @Override
     public IntelligentStudent copy(){
         return new IntelligentStudent(this);
     }
