@@ -1,6 +1,6 @@
-package DesignPatterns.Creational.PrototypeAndRegistry;
+package DesignPatterns.Creational.PrototypeAndRegistry.V1;
 
-public class Student implements Prototype<Student>{
+public class Student implements Prototype<Student> {
     private int id;
     private String name;
     private double psp;

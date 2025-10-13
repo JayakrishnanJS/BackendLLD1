@@ -1,4 +1,4 @@
-package DesignPatterns.Creational.PrototypeAndRegistry;
+package DesignPatterns.Creational.PrototypeAndRegistry.V1;
 
 public class StudentTemplateInitializer {
 

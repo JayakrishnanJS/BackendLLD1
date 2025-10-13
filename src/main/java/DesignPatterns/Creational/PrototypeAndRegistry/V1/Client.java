@@ -1,4 +1,4 @@
-package DesignPatterns.Creational.PrototypeAndRegistry;
+package DesignPatterns.Creational.PrototypeAndRegistry.V1;
 
 public class Client {
 
@@ -71,12 +71,12 @@ public class Client {
         PrototypeRegistry registry = StudentRegistry.INSTANCE;
 
         // 2) Copy a plain DEVOPS student
-        Student devopsStudentClone = registry.get(StudentType.DEVOPS);
+        Student devopsStudentClone = registry.clone(StudentType.DEVOPS);
         devopsStudentClone.setName("Copied Generic DEVOPS Student");
         System.out.println("DEVOPS Copy: " + devopsStudentClone.getName());
 
         // 3) Clone and customize SOFTWARE (IntelligentStudent)
-        Student softwareStudentTemplate = registry.get(StudentType.SOFTWARE);
+        Student softwareStudentTemplate = registry.clone(StudentType.SOFTWARE);
         IntelligentStudent intelligentSoftwareStudentClone = new IntelligentStudent(softwareStudentTemplate);
         intelligentSoftwareStudentClone.setIq(150);
         intelligentSoftwareStudentClone.setName("Copied Intelligent SOFTWARE Student");

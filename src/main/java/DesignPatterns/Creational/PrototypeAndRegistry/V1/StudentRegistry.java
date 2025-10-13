@@ -1,4 +1,4 @@
-package DesignPatterns.Creational.PrototypeAndRegistry;
+package DesignPatterns.Creational.PrototypeAndRegistry.V1;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
 //  a. A single global instance (StudentRegistry.INSTANCE)
 //  b. No extra boilerplate for locking or serialization
 
-public enum StudentRegistry implements  PrototypeRegistry{
+public enum StudentRegistry implements PrototypeRegistry {
     INSTANCE; // Singleton instance
     /*
     declaring your registry as an enum guarantees a single instance, for these reasons:
@@ -69,7 +69,7 @@ public enum StudentRegistry implements  PrototypeRegistry{
         registry.put(key, prototype);
     }
     /**
-     * Retrieve a fresh copy of the prototype for the given enum key.
+     * Retrieve a prototype for the given enum key.
      */
     @Override
     public synchronized Student get(StudentType key) {
@@ -77,7 +77,7 @@ public enum StudentRegistry implements  PrototypeRegistry{
         if (proto == null) {
             throw new IllegalArgumentException("No template registered for key: " + key);
         }
-        return proto.copy();
+        return proto;
     }
 
     // Method to remove a student
@@ -90,6 +90,14 @@ public enum StudentRegistry implements  PrototypeRegistry{
     @Override
     public synchronized int getRegisteredCount() {
         return registry.size();
+    }
+
+    /**
+     * Retrieve a fresh copy of the prototype for the given enum key.
+     */
+    @Override
+    public Student clone(StudentType key) {
+        return registry.get(key).copy();
     }
 }
 

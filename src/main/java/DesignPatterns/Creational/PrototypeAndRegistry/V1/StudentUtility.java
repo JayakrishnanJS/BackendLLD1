@@ -1,4 +1,4 @@
-package DesignPatterns.Creational.PrototypeAndRegistry;
+package DesignPatterns.Creational.PrototypeAndRegistry.V1;
 
 public class StudentUtility {
     // StudentUtility client is not concerned about which object is coming
