@@ -1,0 +1,90 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+' Design a class diagram for a simple Tic Tac Toe game.
+' The game is played on a 3x3 grid, and the goal for a player
+' is to place three of their marks in a horizontal, vertical, or diagonal row.
+
+ 'Requirements:
+
+ ' 1. There should be two players in the game: 'X' and 'O'.
+ ' 2. The board should have 3x3 cells.
+ ' 3. Players take alternate turns to place their marks on the board.
+ ' 4. A player can place their mark only on an unoccupied cell.
+ ' 5. The game should be able to identify and announce the winner (if there is one) or
+ '    if the game is a draw.
+ ' 6. The game should be able to display the current state of the board.
+ ' 7. The game should have the ability to reset the board for a new game.
+ ' 8. There should be methods to validate the move.
+ ' 9. The game should maintain the history of moves.
+ ' 10. Players should be able to query the game's rules.
+
+
+class Game {
+    +playerX: Player
+    +playerO: Player
+    +currentPlayer: Player
+    +board: Board
+    +moveHistory: List<Move>
+
+    +start(): void
+    +playTurn(row: int, col: int): void
+    +validateMove(row: int, col: int): boolean
+    +checkWin(): boolean
+    +isDraw(): boolean
+    +resetBoard(): void
+    +displayCurrentState(): void
+    +getRules(): String
+}
+
+class Board {
+    +size: int
+    +cells: Cell[3][3]
+
+    +getCell(row: int, col: int): Cell
+    +display(): void
+    +reset(): void
+}
+
+class Player {
+    +name: String
+    +symbol: char
+}
+
+class Cell {
+    +row: int
+    +col: int
+    +player: Player
+    +isOccupied(): boolean
+}
+
+class Move {
+    +player: Player
+    +row: int
+    +col: int
+    +timestamp: Date
+}
+
+' =============================
+' 🎯 Relationships & Cardinality
+' =============================
+
+' Composition: Game owns Board => arrow towards owner
+Game *-- Board : has 1
+
+' Association: Game uses two players => arrow towards used class
+Game --> Player : uses 2
+
+' Association: Game keeps move history
+Game --> " * " Move : records
+
+' Composition: Board owns 9 Cells
+Board *-- "9" Cell : contains
+
+' Association: Cell optionally links to a Player
+Cell --> "0..1" Player : occupied by
+
+' Association: Move made by one Player
+Move --> "1" Player : made by
+
+@enduml

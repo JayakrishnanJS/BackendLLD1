@@ -1,0 +1,93 @@
+@startuml
+
+' Title of the Diagram
+title Basic PlantUML Syntax Example
+
+' === Class Definitions ===
+' Define plain classes with attributes and methods
+class User {
+  ' private attribute
+  -id: int
+  -name: String
+  ' public method
+  +getId(): int
+  +getName(): String
+  +setName(name: String): void
+}
+
+class Role {
+  -id: int
+  -roleName: String
+  +getRoleName(): String
+}
+
+class Permission {
+  -id: int
+  -description: String
+  +getDescription(): String
+}
+
+' Define an interface (methods only; no attributes)
+interface Authenticatable {
+  +login(username: String, password: String): boolean
+  +logout(): void
+}
+
+' Define an abstract class (cannot be instantiated directly)
+abstract class AbstractEntity {
+  #createdAt: Date
+  #updatedAt: Date
+  +getCreatedAt(): Date
+  +getUpdatedAt(): Date
+}
+
+' Define an enum (a set of predefined constants)
+enum Status {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+' === Class Relationships ===
+' Inheritance (AbstractEntity is the parent class for User, Role, and Permission)
+AbstractEntity <|-- User
+AbstractEntity <|-- Role
+AbstractEntity <|-- Permission
+
+' Implementation: User implements the Authenticatable interface
+User ..|> Authenticatable : implements
+
+' Associations (Cardinalities between classes)
+User "1" o-- "*" Role : has roles
+Role "1" -- "*" Permission : grants permissions
+
+' General bidirectional relationship
+User <---> Role : maps to
+
+' === Notes ===
+' You can add notes connected to specific elements
+note right of User
+  Represents a user in the system.
+end note
+
+note top of Role : Each user has one or more roles.
+
+' === Groups ===
+' Group related classes using a package (logical grouping, optional)
+package "Authentication" {
+  class User
+  interface Authenticatable
+}
+
+' === Additional Decorations ===
+' Change class color (style customization)
+class Permission #LightSkyBlue
+
+@enduml
+
+| Relationship Type             | Valid Symbol | Meaning                                       |
+| ----------------------------- | ------------ | --------------------------------------------- |
+| **Association**               | `A --> B`    | A refers to B (by field or method)            |
+| **Aggregation**               | `A o-- B`    | A has B weakly (B can exist independently)    |
+| **Composition**               | `A *-- B`    | A owns B strongly (B cannot outlive A)        |
+| **Bidirectional Association** | `A -- B`     | Both refer to each other (no direction shown) |

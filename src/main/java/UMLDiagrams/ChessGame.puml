@@ -1,0 +1,132 @@
+Design Class Diagram for Chess Game
+
+1. Create a representation for the chessboard.
+2. Represent all the pieces: King, Queen, Bishop, Knight, Rook, and Pawn.
+3. Differentiate the pieces based on color: Black and White.
+4. Each piece should have a method to determine its legal moves based on its current position.
+5. The chessboard should have a method to move a piece from one position to another.
+6. There should be a way to check the status of the game, e.g., ongoing, check, checkmate, or stalemate.
+7. The game should support special moves: castling, pawn promotion, and en passant.
+8. Implement a player class, where each player has a color and a set of pieces.
+9. Include a game class that will handle turn-based gameplay between two players.
+10. The game should have a method to capture and remove a piece from the board.
+
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Piece{
+    - color: Color
+    - position: Cell
+    + legalMoves(board: Board): List<Cell>
+}
+
+class King{
+    + legalMoves(board: Board): List<Cell>
+    + canCastle(board: Board): boolean
+}
+
+class Queen{
+    + legalMoves(board: Board): List<Cell>
+}
+
+class Bishop{
+    + legalMoves(board: Board): List<Cell>
+}
+
+class knight{
+    + legalMoves(board: Board): List<Cell>
+}
+
+class Rook{
+    + legalMoves(board: Board): List<Cell>
+    + canCastle(board: Board): boolean
+}
+
+class Pawn{
+    + legalMoves(board: Board): List<Cell>
+    + canEnPassant(board: Board): boolean
+    + promote(to: Piece): void
+}
+
+class Cell{
+    - file: char
+    'a-h
+    - rank: int
+    '1-8'
+    - occupant: Piece
+    + isEmpty(): boolean
+}
+
+class Board{
+  - cells: Map<String, Cell>
+  ' key = "a1"…"h8"
+  + getCell(coord: String): Cell
+  + movePiece(m: Move): void
+  + getPieces(color: Color): List<Piece>
+  + removePiece(p: Piece): void
+}
+
+class Player {
+  - color: Color
+  - pieces: List<Piece>
+  + makeMove(m: Move): void
+}
+
+class Game {
+  - board: Board
+  - white: Player
+  - black: Player
+  - currentPlayer: Player
+  - status: GameStatus
+  + start(): void
+  + takeTurn(m: Move): void
+  + capture(piece: Piece): void
+  + updateStatus(): void
+}
+
+class Move {
+  - from: Cell
+  - to: Cell
+  - special: String
+  ' "castle", "enPassant", "promotion"
+}
+
+enum Color{
+    WHITE
+    BLACK
+}
+
+enum GameStatus{
+    ONGOING
+    CHECK
+    CHECKMATE
+    STALEMATE
+}
+
+' Composition & inheritance
+Game        "1" *-- "1"    Board
+Game        "1" o-- "1"    Player  : white
+Game        "1" o-- "1"    Player  : black
+Game        "1" --> "1"    Player  : currentPlayer
+Game        "1" --> "1"    GameStatus : status
+
+Board       "1" *-- "64"   Cell    : cells
+Cell        "0..1" --> "1" Piece  : occupant
+
+Piece       <|-- King
+Piece       <|-- Queen
+Piece       <|-- Bishop
+Piece       <|-- Knight
+Piece       <|-- Rook
+Piece       <|-- Pawn
+
+Player      "1" o-- "16" Piece  : pieces
+
+Move        "1" --> "1"    Cell   : from
+Move        "1" --> "1"    Cell   : to
+
+' Enums
+GameStatus .. Game
+Color      .. Piece
+
+@enduml
