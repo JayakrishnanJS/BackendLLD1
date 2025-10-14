@@ -9,6 +9,8 @@ public class Client {
     //   but allows subclasses to alter the type of objects that will be created.
     //   this method returns an instance of the class
     // - blurs the line between product and factory (each Platform is both).
+    // Use: Creating one product at a time, using inheritance.
+    // Focus: One product per method, subclass decides which product.
 
     // The complete steps to implement the factory method pattern are:
     // 1. Base factory interface - Create a factory class that contains a method for creating
