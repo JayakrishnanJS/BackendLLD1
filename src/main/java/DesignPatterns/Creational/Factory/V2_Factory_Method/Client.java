@@ -2,6 +2,8 @@ package DesignPatterns.Creational.Factory.V2_Factory_Method;
 
 import DesignPatterns.Creational.Factory.V2_Factory_Method.Components.Button.Button;
 import DesignPatterns.Creational.Factory.V2_Factory_Method.Components.Dropdown.Dropdown;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Client {
@@ -23,11 +25,14 @@ public class Client {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String platformName = scanner.nextLine();
+        String version = scanner.nextLine();
+        LocalDate releaseDate = LocalDate.parse(scanner.nextLine());
 
-        Platform platform = PlatformFactory.getPlatform(platformName);
+        // Concerned more about creating Platform instances than individual components.
+        Platform platform = PlatformFactory.getPlatform(platformName, version, releaseDate); // Other attributes like version and releaseDate
 
         // Client calls workflow methods on the creator
-        platform.initializePlatform();   // other responsibility
+        platform.initializePlatform();   // other responsibility or behavior of creator
         platform.renderUI();             // uses factory methods internally
 
         /*
@@ -40,7 +45,7 @@ public class Client {
         the base class (like renderUI()), then the base class logic runs, and inside it,
         the subclass override is invoked.
 
-        if above 2 methods are not provided in Platform class, this design pattern is
+        if above 2 methods are not provided in Platform class and no attributes in it, this design pattern is
         Abstract Factory, not Factory Method(a creator class with other responsibilities).
         The client depends on a factory object, and variation comes from composition
         (injecting a different factory instance), not depend on extended subclasses.

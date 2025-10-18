@@ -5,7 +5,13 @@ import DesignPatterns.Creational.Factory.V2_Factory_Method.Components.Button.But
 import DesignPatterns.Creational.Factory.V2_Factory_Method.Components.Dropdown.AndroidDropdown;
 import DesignPatterns.Creational.Factory.V2_Factory_Method.Components.Dropdown.Dropdown;
 
+import java.time.LocalDate;
+
 public class AndroidPlatform extends Platform {
+
+    public AndroidPlatform(String version, LocalDate releaseDate) {
+        super(version, releaseDate);
+    }
 
     @Override
     public Button createButton() {
