@@ -26,11 +26,32 @@ public class Client {
 
         Platform platform = PlatformFactory.getPlatform(platformName);
 
+        // Client calls workflow methods on the creator
+        platform.initializePlatform();   // other responsibility
+        platform.renderUI();             // uses factory methods internally
+
+        /*
+        When the client calls platform.renderUI(), the base class logic runs. Inside renderUI(), the
+        call to createButton() is dispatched to the subclass (AndroidPlatform).That’s the inheritance
+        at work: the abstract base defines the workflow, and subclasses supply the concrete products.
+
+        When you call platform.createButton() directly, only the subclass override runs
+        (because the base class has no implementation). When you call a concrete method in
+        the base class (like renderUI()), then the base class logic runs, and inside it,
+        the subclass override is invoked.
+
+        if above 2 methods are not provided in Platform class, this design pattern is
+        Abstract Factory, not Factory Method(a creator class with other responsibilities).
+        The client depends on a factory object, and variation comes from composition
+        (injecting a different factory instance), not depend on extended subclasses.
+
+        Alternatively, client can use factory methods directly in Abstract Factory pattern:
         Button   button   = platform.createButton();
         Dropdown dropdown = platform.createDropdown();
 
         button.click();
         dropdown.showOptions();
+        */
     }
 }
 

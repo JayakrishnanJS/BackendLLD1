@@ -2,6 +2,8 @@ package DesignPatterns.Creational.Factory.V3_Abstract_Factory;
 
 import DesignPatterns.Creational.Factory.V3_Abstract_Factory.Components.Dropdown.Dropdown;
 import DesignPatterns.Creational.Factory.V3_Abstract_Factory.Components.Button.Button;
+import DesignPatterns.Creational.Factory.V3_Abstract_Factory.Layouts.HomeScreen.HomeScreen;
+import DesignPatterns.Creational.Factory.V3_Abstract_Factory.Layouts.LockScreen.LockScreen;
 
 import java.util.Scanner;
 
@@ -36,12 +38,31 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         String platform = scanner.nextLine();
 
-        UIComponentFactory factory = PlatformFactory.getFactory(platform);
-        Button   button   = factory.createButton();
-        Dropdown dropdown = factory.createDropdown();
+        // 1. Settings dialog
+        //Imagine you want a small popup for app settings.
+        //It might just need a Dropdown for language selection and a Button for “Save”.
+        //You don’t need a full HomeScreen or LockScreen — just components.
+        UIComponentFactory uiComponentFactory = PlatformFactory.getUIComponentFactory(platform);
+        Button   button   = uiComponentFactory.createButton();
+        Dropdown dropdown = uiComponentFactory.createDropdown();
 
         button.click();
         dropdown.showOptions();
+
+
+        // 2. HomeScreen and LockScreen Layouts
+        UILayoutFactory uiLayoutFactory = PlatformFactory.getUILayoutFactory(platform);
+        // Create a consistent family of layouts for the chosen platform.
+        // Create full layouts like HomeScreen and LockScreen, which internally use the same family
+        // of components - buttons, dropdowns, etc.
+        HomeScreen home = uiLayoutFactory.createHomeScreen();
+        LockScreen lock = uiLayoutFactory.createLockScreen();
+
+        home.applyTheme(); // use dropdown and button internally
+        home.render();
+
+        lock.applyTheme(); // use dropdown and button internally
+        lock.render();
     }
 }
 // Pros :
@@ -64,6 +85,7 @@ public class Client {
  * - Subclasses (AndroidPlatform, IOSPlatform) override factory methods
  *   like createButton() / createDropdown() to produce platform-specific components.
  * - Focus: on the *methods* that subclasses override.
+ * - Abstract class contains both creation methods + other behaviors or data.
  * - Creation = via inheritance.
  * - Client depends on: abstract class (Platform).
  *
@@ -72,9 +94,14 @@ public class Client {
  * - Concrete factories (AndroidUIComponentFactory, IOSUIComponentFactory) ensure
  *   all created objects belong to the same family (Android / iOS).
  * - Focus: on the *factory object* itself.
+ * - Abstract class or Interface contains only creation methods.
  * - Creation = via composition.
  * - Client depends on: factory interface (UIComponentFactory).
- *
+
+
+ Factory Method: Subclass decides what to create.
+ Abstract Factory: Factory object decides, ensuring consistent product families.
+
  * ✅ Summary:
  * Factory Method → Class hierarchy decides *how* to create products.
  * Abstract Factory → Separate object dedicated *only* to creating consistent families of products.
