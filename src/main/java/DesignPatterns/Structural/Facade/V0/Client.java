@@ -1,7 +1,5 @@
 package DesignPatterns.Structural.Facade.V0;
 
-import Concurrency4.ProducerConsumer.Consumer;
-
 public class Client {
     public static void main(String[] args) {
         Order order = new Order("XYZ789", 1499.50);

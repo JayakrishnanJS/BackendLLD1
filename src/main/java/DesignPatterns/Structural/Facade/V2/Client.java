@@ -1,9 +1,9 @@
-package DesignPatterns.Structural.Facade.V1;
+package DesignPatterns.Structural.Facade.V2;
 
 public class Client {
     public static void main(String[] args) {
         Order order = new Order("ABC123", 2599.99);
-        order.checkout();
+        order.checkout(); // // client never sees subsystems or processor
     }
 }
 /**
@@ -18,19 +18,4 @@ public class Client {
  the complex logic of the existing classes. For our example above, we will move the
  complex logic to a new class called OrderProcessor.
  **/
-/*
-The problem with this approach is:
-1. Hard-coded dependencies
-    The OrderProcessor creates its own subsystem instances.
-    You cannot swap them for tests, mocks, or alternative implementations.
-2. No flexibility
-    If you want a different PaymentGateway (e.g., PayPal vs Stripe), you’d have to edit this class.
-3. Tight coupling
-    OrderProcessor is tightly coupled to these concrete classes.
-    Violates Dependency Inversion Principle (from SOLID).
-4. Not production-friendly
-    Hard to extend or maintain when subsystems grow.
 
-✅ Better approach:
-Use constructor injection or a static factory method to initialize OrderProcessor with its dependencies.
- */
