@@ -8,7 +8,8 @@ public class OrderProcessor {
     private final AnalyticsService analyticsService;
 
     // Loose coupling solution: Use constructor injection and factory method:
-    public OrderProcessor(PaymentGatewayImpl paymentGateway,
+    // private constructor to force use of factory method and prevent direct instantiation
+    private OrderProcessor(PaymentGatewayImpl paymentGateway,
                           Inventory inventory,
                           EmailService emailService,
                           ShippingService shippingService,
