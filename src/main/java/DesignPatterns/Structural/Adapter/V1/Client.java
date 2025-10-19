@@ -14,8 +14,8 @@ import java.util.Scanner;
 // behind the scenes. The wrapped object isn’t even aware of the adapter.
 // Working:
 // 1. The adapter gets an interface, compatible with one of the existing objects.
-// 2. Using this interface, the existing object can safely call the adapter’s methods.
-// 3. Upon receiving a call, the adapter passes the request to the second object, but in a
+// 2. Using this interface, the existing object(Adaptee) can safely call the adapter’s methods.
+// 3. Upon receiving a call, the adapter passes the request to the second object(Adaptee), but in a
 //    format and order that the second object expects.
 
 public class Client {
@@ -36,6 +36,25 @@ public class Client {
 // 2. Adaptee: ICICBankAPI
 // 3. Adapter: ICICBankAdapter
 // 4. Client: PhonePe
+
+/*
+In your code example, the Adapter Pattern works as follows:
+
+1. Target Interface: `BankAPI` defines a common interface that PhonePe can work with, regardless of which bank's API is being used.
+2. Client: `PhonePe` is the client that needs to perform operations (like recharging FasTag) using different banks' APIs.
+   It works with the `BankAPI` interface rather than specific implementations.
+3. Adaptee: `ICICBankAPI` (not shown in the code excerpt) represents an existing bank API with an incompatible interface
+   that PhonePe can't use directly.
+4. Adapter: `ICICBankAdapter` (not shown, but referenced in the comments) wraps the `ICICBankAPI` and implements the
+   `BankAPI` interface, translating PhonePe's requests into a format that ICICI Bank's API can understand.
+
+In your implementation:
+- The `BankAPIFactory.getBankAPIByName(bankName)` creates the appropriate adapter based on the bank name input
+- `PhonePe` receives this adapter and uses it through the common `BankAPI` interface
+- When `phonePe.rechargeFastTag(100)` is called, PhonePe works with the adapter, which in turn translates the request to the specific bank's API format
+
+This allows PhonePe to work with multiple bank APIs without changing its code, fulfilling the Adapter pattern's purpose of making incompatible interfaces work together.
+*/
 
 // When to use Adapter Design Pattern:
 // - When you want to use an existing class but its interface does not match the one you need.
