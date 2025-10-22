@@ -2,6 +2,7 @@ package DesignPatterns.Structural.Adapter.V2;
 
 import java.util.Scanner;
 
+// When both bank API returnType are different, and we have to support multiple banks
 public class Client {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
