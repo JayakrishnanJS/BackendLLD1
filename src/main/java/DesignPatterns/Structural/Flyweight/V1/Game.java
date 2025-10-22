@@ -33,6 +33,11 @@ public class Game {
                                     );
 
         // Approximate extrinsic state per bullet (object header + primitives)
+        // The memory used by a single FlyingBullet instance would be:
+        // 6 double fields: 6 * 8 bytes = 48 bytes
+        // 1 int field: 1 * 4 bytes = 4 bytes
+        // 1 object reference (bulletType): 1 * 8 bytes = 8 bytes
+        // total 60 bytes per FlyingBullet + object header (approx 4-8 bytes, assume 4 bytes here)
         final int EXTRINSIC_BYTES = 64;
         double extrinsicStateMemory = MemoryCalculator.calculate(
                                         "v1 Extrinsic State Total",
