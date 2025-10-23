@@ -2,7 +2,13 @@ package DesignPatterns.Structural.Flyweight.V1;
 
 import java.util.*;
 
-// the factory returns a shared `BulletType` instead of creating new data for each bullet
+ /*
+  The BulletFactory serves:
+    Factory responsibility: Creates FlyingBullet instances
+    Registry responsibility: Maintains the shared BulletType objects in the types map
+ */
+
+// The factory returns a shared `BulletType` instead of creating new data for each bullet
 public class BulletFactory {
     // Map typeId → shared BulletType as flyweight
     private static final Map<Integer, BulletType> types = new HashMap<>();
