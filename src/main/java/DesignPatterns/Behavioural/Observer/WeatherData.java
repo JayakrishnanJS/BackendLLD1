@@ -3,6 +3,8 @@ package DesignPatterns.Behavioural.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
+//  Observable Interface or Subject Interface implementation or Publisher
+//  The WeatherData is the core class which maintains the List of Observers and notifies them whenever there is a change in its state
 public class WeatherData implements Subject {
     //AverageStatsDisplay averageStatsDisplay;
     //CurrentStatsDisplay currentStatsDisplay;

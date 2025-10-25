@@ -4,20 +4,23 @@ public class AverageStatsDisplay implements Observer, Display {
     private float temperature;
     private float humidity;
     private float pressure;
-    private Subject subject; // aggregation
+
+    // aggregation relationship with Subject
+    private Subject subject;
 
     public Subject getSubject() {
         return subject;
     }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
     // Dynamic self registration mechanism - is a way for the `AverageStatsDisplay` object (observer) to register itself
     // with a `Subject` (observable object). This means the `AverageStatsDisplay` instance informs the `Subject` that
     // it wants to receive updates whenever the `Subject's` state changes
     public void registerWithSubject(){
         subject.registerObserver(this);
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 
     @Override
